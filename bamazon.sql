@@ -30,5 +30,5 @@ VALUES("cat_ferret_toy", "7", "pets", "10");
 INSERT INTO products (item_name, price, department_name, stock_quantity)
 VALUES("dog_collar", "15", "pets", "15");
 INSERT INTO products (item_name, price, department_name, stock_quantity)
-VALUES("dog_bandana", "10", "pet_toys", "5");
+VALUES("dog_bandana", "10", "pets", "5");
 

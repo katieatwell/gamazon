@@ -27,8 +27,6 @@ function startBamazon() {
             choices: [
                 { value: "view_inventory", name: "View inventory" },
                 { value: "select_item_for_purchase", name: "Select an item to purchase" }
-                // {value:"Find data within a specific range",
-                // "Search for a specific song"
             ]
 
         }]).then(function(response) {
@@ -49,7 +47,8 @@ function showItems() {
         .prompt([{
             name: "choice",
             type: "list",
-            message: "Select all items to view inventory",
+            message: "Select "
+            all items " to view inventory",
             choices: [
                 "All Items"
             ]
@@ -92,22 +91,21 @@ function placeOrder() {
 
             }
         ]).then(function(response) {
-            var query = connection.query("SELECT stock_quantity, price FROM products WHERE ?", { item_id: response.itemID }, function(err, res) {
+            var query = connection.query("SELECT stock_quantity, price, item_name FROM products WHERE ?", { item_id: response.itemID }, function(err, res) {
                 if (err) throw err;
 
                 var selectedItem = response.itemID;
                 var selectedQuantity = response.desiredQuantity;
                 var newStockQuantity = res[0].stock_quantity - response.desiredQuantity;
                 var displayPrice = selectedQuantity * res[0].price;
-                console.log("YOUR PRICE: " + displayPrice);
+                console.log("The total amount owed for this item is: " + displayPrice);
+                console.log("The stock for " + res[0].item_name + " is now: " + newStockQuantity);
                 if (response.desiredQuantity <= res[0].stock_quantity) {
                     updateInventory();
 
                     function updateInventory() {
                         var query = connection.query("UPDATE products SET ? WHERE ?", [{ stock_quantity: newStockQuantity }, { item_id: selectedItem }], function(err, res) {
                             if (err) throw err;
-                            console.log(res.affectedRows + " product(s) were updated!");
-                            console.log("The stock for this item is now: " + newStockQuantity);
                             startBamazon();
                         });
                     }

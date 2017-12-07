@@ -49,16 +49,12 @@ function showItems() {
         .prompt([{
             name: "choice",
             type: "list",
-            message: "Would you like to view all items or a specific item?",
+            message: "Select all items to view inventory",
             choices: [
-                "All Items",
-                "Specific Items"
+                "All Items"
             ]
 
         }]).then(function(response) {
-            if (response.choice == "Specific Items") {
-                connection.end();
-            }
             if (response.choice == "All Items") {
                 connection.query("SELECT * FROM products", function(err, res) {
                     if (err) throw err;

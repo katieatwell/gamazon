@@ -47,8 +47,7 @@ function showItems() {
         .prompt([{
             name: "choice",
             type: "list",
-            message: "Select "
-            all items " to view inventory",
+            message: "Select 'all items' to view inventory",
             choices: [
                 "All Items"
             ]
